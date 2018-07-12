@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'io.franzbecker.gradle-lombok' version '1.14'
+}
+
+apply plugin: 'com.github.johnrengelman.plugin-shadow'
+
+mainClassName = 'me.ry00001.jbot.Jbot'
+
+dependencies {
+    compile 'net.dv8tion:JDA:3.6.0_377'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile 'org.tuxdude.logback.extensions:logback-colorizer:1.0.1'
+}
+
+lombok {
+    version = "1.18.0"
+    sha256 = ""
+}
+
+repositories {
+    jcenter()
+}
+
+repositories {
+    mavenCentral()
+}
+
+repositories {
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+}
+
+jar {
+    manifest {
+        attributes(
+            'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+            'Main-Class': 'me.ry00001.jbot.Jbot'
+        )
+    }
+}
