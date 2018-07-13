@@ -7,6 +7,8 @@ import lombok.Getter;
 
 import me.ry00001.jbot.Jbot;
 
+import java.util.function.Consumer;
+
 public class CommandContext {
     @Getter
     public MessageChannel channel;
@@ -28,6 +30,14 @@ public class CommandContext {
         this.message = evt.getMessage();
         this.bot = bot;
         this.event = evt;
+    }
+
+    public void send(String content, Consumer<Message> callback, Consumer<Throwable> errcb) {
+        this.channel.sendMessage(content).queue(callback, errcb);
+    }
+
+    public void send(String content, Consumer<Message> callback) {
+        this.channel.sendMessage(content).queue(callback);
     }
 
     public void send(String content) {

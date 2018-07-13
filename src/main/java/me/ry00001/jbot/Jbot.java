@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 
 import me.ry00001.jbot.core.*;
 import me.ry00001.jbot.utils.*;
@@ -29,7 +30,19 @@ public class Jbot extends ListenerAdapter {
     public HashMap<String, Command> commands;
     public Config config;
 
+    public JDA jda;
+
     public final Logger logger = LoggerFactory.getLogger(Jbot.class);
+
+    public DatabaseHandler db;
+
+    public Config getConfig() {
+        return this.config;
+    }
+
+    public HashMap<String, Command> getCommands() {
+        return this.commands;
+    }
 
     public Jbot() {
         this.commands = new HashMap<String, Command>(); // ONE NEW BOI
@@ -41,11 +54,12 @@ public class Jbot extends ListenerAdapter {
             System.out.println("ERROR while reading config: "+e);
             System.exit(1);
         }
+        this.db = new DatabaseHandler(this);
         Reflections reflections = new Reflections("me.ry00001.jbot.commands");
         Set<Class<? extends Command>> commandClasses = reflections.getSubTypesOf(Command.class);
         for (Class<? extends Command> i : commandClasses) {
             try {
-                Command cls = i.getDeclaredConstructor().newInstance();
+                Command cls = i.getDeclaredConstructor(this.getClass()).newInstance(this);
                 this.commands.put(cls.name, cls);
             } catch (Exception e) {
                 System.out.println("Error while loading commands: "+e);
@@ -57,10 +71,11 @@ public class Jbot extends ListenerAdapter {
 
     public void start() {
         try {
-            JDA jda = new JDABuilder(AccountType.BOT)
-                          .setToken(this.config.token)
-                          .addEventListener(this)
-                          .buildBlocking();
+            this.jda = new JDABuilder(AccountType.BOT)
+                            .setAudioEnabled(true)
+                            .setToken(this.config.token)
+                            .addEventListener(this)
+                            .buildBlocking();
         } catch (LoginException|InterruptedException e) {
             e.printStackTrace();
             System.exit(1);
@@ -69,6 +84,15 @@ public class Jbot extends ListenerAdapter {
 
     public static void main(String[] args) {
         new Jbot().start();
+    }
+
+    public void shutdown() {
+        // Shuts down.
+        logger.info("Shutting down.");
+        this.db.getConnection().close();
+        this.db.getClient().shutdown();
+        this.jda.shutdown();
+        System.exit(0);
     }
 
     @Override

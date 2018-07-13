@@ -1,9 +1,12 @@
 package me.ry00001.jbot.commands;
 
 import me.ry00001.jbot.core.*;
+import me.ry00001.jbot.Jbot;
 import java.util.ArrayList;
 import java.io.InputStreamReader;
 import java.io.Reader;
+
+import net.dv8tion.jda.core.entities.Game;
 
 import javax.script.*;
 
@@ -15,7 +18,7 @@ public class Eval extends Command {
     private boolean babelEnabled = false;
     private final Logger logger = LoggerFactory.getLogger(Eval.class);
 
-    public Eval() {
+    public Eval(Jbot bot) {
         this.name = "eval";
         this.description = "runs JS code";
         this.ownerOnly = true;
@@ -43,6 +46,8 @@ public class Eval extends Command {
         engine.put("jda", ctx.event.getJDA());
         engine.put("args", args);
         engine.put("bot", ctx.bot);
+        Object game = Game.class;
+        engine.put("entities", game);
         engine.put("class", this);
         try {
             Object res;

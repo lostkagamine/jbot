@@ -23,6 +23,7 @@ dependencies {
     compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile 'org.tuxdude.logback.extensions:logback-colorizer:1.0.1'
+    compile group: 'io.lettuce', name: 'lettuce-core', version: '5.1.0.M1'
 }
 
 lombok {

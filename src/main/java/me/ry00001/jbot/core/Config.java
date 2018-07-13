@@ -4,4 +4,5 @@ public class Config {
     public String token;
     public String prefix;
     public long[] owners;
+    public String redis;
 }
