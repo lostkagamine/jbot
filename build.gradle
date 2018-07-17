@@ -25,12 +25,14 @@ plugins {
     id 'io.franzbecker.gradle-lombok' version '1.14'
 }
 
+apply plugin: 'scala'
 apply plugin: 'kotlin'
 apply plugin: 'com.github.johnrengelman.plugin-shadow'
 
 mainClassName = 'me.ry00001.jbot.Jbot'
 
 dependencies {
+    compile 'org.scala-lang:scala-library:2.11.12'
     compile "org.jetbrains.kotlin:kotlin-reflect" // else kotmeme will yell at me
     compile 'net.dv8tion:JDA:3.6.0_377'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
