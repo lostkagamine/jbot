@@ -1,7 +1,6 @@
 package me.ry00001.jbot.core;
 
 import java.util.ArrayList;
-import me.ry00001.jbot.Jbot;
 import net.dv8tion.jda.core.Permission;
 
 public abstract class Command {

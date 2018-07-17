@@ -18,7 +18,7 @@ public class Help extends Command {
         StringBuilder out = new StringBuilder();
         out.append("```\n");
         for (Command i: cmds.values()) {
-            out.append(i.name + ": " + i.description);
+            out.append(i.name + ": " + i.description + "\n");
         }
         out.append("```");
         ctx.send(out.toString());

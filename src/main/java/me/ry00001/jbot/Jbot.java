@@ -59,10 +59,10 @@ public class Jbot extends ListenerAdapter {
         Set<Class<? extends Command>> commandClasses = reflections.getSubTypesOf(Command.class);
         for (Class<? extends Command> i : commandClasses) {
             try {
-                Command cls = i.getDeclaredConstructor(this.getClass()).newInstance(this);
+                Command cls = i.getDeclaredConstructor(Jbot.class).newInstance(this);
                 this.commands.put(cls.name, cls);
             } catch (Exception e) {
-                System.out.println("Error while loading commands: "+e);
+                logger.error("Error while loading commands: "+e);
                 e.printStackTrace();
                 System.exit(1);
             }

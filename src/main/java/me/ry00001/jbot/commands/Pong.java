@@ -4,6 +4,8 @@ import me.ry00001.jbot.core.*;
 import me.ry00001.jbot.Jbot;
 import java.util.ArrayList;
 
+import java.time.temporal.ChronoUnit;
+
 public class Pong extends Command {
     public Pong(Jbot jbot) {
         this.name = "pong";
@@ -11,6 +13,9 @@ public class Pong extends Command {
     }
 
     public void run(CommandContext ctx, ArrayList<String> args) {
-        ctx.channel.sendMessage("ping").queue();
+        ctx.send("...", m -> {
+            long latency = ctx.event.getMessage().getCreationTime().until(m.getCreationTime(), ChronoUnit.MILLIS);
+            m.editMessage("Ping! " + latency + "ms.\nGateway latency: " + ctx.jda.getPing() + "ms").queue();
+        });
     }
 }

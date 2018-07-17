@@ -49,18 +49,20 @@ public class Eval extends Command {
         Object game = Game.class;
         engine.put("entities", game);
         engine.put("class", this);
-        try {
-            Object res;
-            if (babelEnabled) { // NOTE- GABIWARE          
-                engine.put("input", joined);
-                String s = engine.eval("Babel.transform(input, { presets: ['es2015'] }).code").toString();
-                res = engine.eval(s);
-            } else {
-                res = engine.eval(joined);
+        ctx.send("<a:icworking:440090198500573184> Compiling...", m -> {
+            try {
+                Object res;
+                if (babelEnabled) { // NOTE- GABIWARE          
+                    engine.put("input", joined);
+                    String s = engine.eval("Babel.transform(input, { presets: ['es2015'] }).code").toString();
+                    res = engine.eval(s);
+                } else {
+                    res = engine.eval(joined);
+                }
+                m.editMessage("<:iccheck:435574370107129867> Done!\n```"+res+"```").queue();
+            } catch (ScriptException e) {
+                m.editMessage("<:icerror:435574504522121216> An error has occurred:\n```" + e + "```").queue();
             }
-            ctx.send("```\n"+res+"```");
-        } catch (ScriptException e) {
-            ctx.send("Oops, something happened:\n```" + e + "```");
-        }
+        });
     }
 }

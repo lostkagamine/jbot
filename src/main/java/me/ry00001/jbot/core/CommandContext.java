@@ -2,6 +2,7 @@ package me.ry00001.jbot.core;
 
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.JDA;
 
 import lombok.Getter;
 
@@ -22,12 +23,15 @@ public class CommandContext {
     public Jbot bot;
     @Getter
     public MessageReceivedEvent event;
+    @Getter
+    public JDA jda;
 
     public CommandContext(MessageReceivedEvent evt, Jbot bot) {
         this.channel = evt.getChannel();
         this.member = evt.getMember();
         this.author = evt.getAuthor();
         this.message = evt.getMessage();
+        this.jda = evt.getJDA();
         this.bot = bot;
         this.event = evt;
     }
