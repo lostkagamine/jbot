@@ -32,6 +32,8 @@ apply plugin: 'com.github.johnrengelman.plugin-shadow'
 mainClassName = 'me.ry00001.jbot.Jbot'
 
 dependencies {
+    compile group: 'org.scala-lang', name: 'scala-reflect', version: '2.11.12'
+    compile group: 'org.scala-lang', name: 'scala-compiler', version: '2.11.12'
     compile 'org.scala-lang:scala-library:2.11.12'
     compile "org.jetbrains.kotlin:kotlin-reflect" // else kotmeme will yell at me
     compile 'net.dv8tion:JDA:3.6.0_377'
