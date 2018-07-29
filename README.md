@@ -7,7 +7,7 @@ Fill out the config.json file.
 `gradlew run`.  
 
 ## Note
-.jar builds are broken at the moment, and I don't know why.  
+~~.jar builds are broken at the moment, and I don't know why.~~ NO THEY'RE NOT USE MAVEN  
 
 So, here's my code, that's probably committed multiple acts of treason against
 the Java programming language and all of its users. Enjoy it, or don't, I guess.
