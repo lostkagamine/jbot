@@ -4,26 +4,17 @@ import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.JDA;
 
-import lombok.Getter;
-
 import me.ry00001.jbot.Jbot;
 
 import java.util.function.Consumer;
 
 public class CommandContext {
-    @Getter
     public MessageChannel channel;
-    @Getter
     public Message message;
-    @Getter
     public Member member;
-    @Getter
     public User author;
-    @Getter
     public Jbot bot;
-    @Getter
     public MessageReceivedEvent event;
-    @Getter
     public JDA jda;
 
     public CommandContext(MessageReceivedEvent evt, Jbot bot) {

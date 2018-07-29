@@ -70,6 +70,11 @@ gradle-app.setting
 
 # End of https://www.gitignore.io/api/java,gradle,windows
 
+# maven
+target/
+
+dependency-reduced-pom.xml
+
 config.json
 
 *.tar
