@@ -9,6 +9,33 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <version>${kotlin.version}</version>
+        <executions>
+            <execution>
+              <id>compile</id>
+              <goals> <goal>compile</goal> </goals>
+              <configuration>
+                <sourceDirs>
+                  <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                  <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                </sourceDirs>
+              </configuration>
+            </execution>
+            <execution>
+              <id>test-compile</id>
+              <goals> <goal>test-compile</goal> </goals>
+              <configuration>
+                <sourceDirs>
+                  <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                  <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                </sourceDirs>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -16,39 +43,67 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>3.1.1</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <transformers>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <manifestEntries>
-                    <Main-Class>me.ry00001.jbot.Jbot</Main-Class>
-                    <Build-Number>123</Build-Number>
-                  </manifestEntries>
-                </transformer>
-              </transformers>
-              <artifactSet>
-                <excludes>
-                  <exclude>classworlds:classworlds</exclude>
-                  <exclude>junit:junit</exclude>
-                  <exclude>jmock:*</exclude>
-                  <exclude>*:xml-apis</exclude>
-                  <exclude>org.apache.maven:lib:tests</exclude>
-                  <exclude>log4j:log4j:jar:</exclude>
-                </excludes>
-              </artifactSet>
-            </configuration>
-          </execution>
+      <plugin>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <version>${kotlin.version}</version>
+
+            <executions>
+                <!-- Replacing default-compile as it is treated specially by maven -->
+                <execution>
+                    <id>default-compile</id>
+                    <phase>none</phase>
+                </execution>
+                <!-- Replacing default-testCompile as it is treated specially by maven -->
+                <execution>
+                    <id>default-testCompile</id>
+                    <phase>none</phase>
+                </execution>
+                <execution>
+                    <id>java-compile</id>
+                    <phase>compile</phase>
+                    <goals> <goal>compile</goal> </goals>
+                </execution>
+                <execution>
+                    <id>java-test-compile</id>
+                    <phase>test-compile</phase>
+                    <goals> <goal>test-compile</goal> </goals>
+                </execution>
         </executions>
       </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-shade-plugin</artifactId>
+      <version>3.1.1</version>
+      <executions>
+        <execution>
+          <phase>package</phase>
+          <goals>
+            <goal>shade</goal>
+          </goals>
+          <configuration>
+            <transformers>
+              <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                <manifestEntries>
+                  <Main-Class>me.ry00001.jbot.Jbot</Main-Class>
+                  <Build-Number>123</Build-Number>
+                </manifestEntries>
+              </transformer>
+            </transformers>
+            <artifactSet>
+              <excludes>
+                <exclude>classworlds:classworlds</exclude>
+                <exclude>junit:junit</exclude>
+                <exclude>jmock:*</exclude>
+                <exclude>*:xml-apis</exclude>
+                <exclude>org.apache.maven:lib:tests</exclude>
+                <exclude>log4j:log4j:jar:</exclude>
+              </excludes>
+            </artifactSet>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
     </plugins>
   </build>
 
@@ -126,10 +181,17 @@
       <version>5.1.0.M1</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
   </dependencies>
 
   <properties>
     <maven.compiler.source>10</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
+    <kotlin.version>1.2.51</kotlin.version>
+    <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
   </properties>
 </project>
