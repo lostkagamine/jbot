@@ -1,12 +1,8 @@
 package me.ry00001.jbot.core
 
-import net.dv8tion.jda.core.entities.*
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import net.dv8tion.jda.core.JDA
-
 import me.ry00001.jbot.Jbot
-
-import java.util.function.Consumer
+import net.dv8tion.jda.core.entities.Message
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 
 class CommandContext(val event: MessageReceivedEvent, val bot: Jbot) {
     val channel = event.channel

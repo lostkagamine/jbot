@@ -1,8 +1,9 @@
 package me.ry00001.jbot.commands
 
-import me.ry00001.jbot.core.*
 import me.ry00001.jbot.Jbot
-import java.util.ArrayList
+import me.ry00001.jbot.core.Command
+import me.ry00001.jbot.core.CommandContext
+import java.util.*
 
 
 class Help(bot: Jbot) : Command("help", "Where you are.") {

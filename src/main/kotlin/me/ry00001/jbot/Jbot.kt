@@ -1,25 +1,20 @@
 package me.ry00001.jbot
 
+import me.ry00001.jbot.core.*
+import me.ry00001.jbot.utils.OwnerChecker
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.JDABuilder
-import net.dv8tion.jda.core.entities.*
+import net.dv8tion.jda.core.entities.ChannelType
+import net.dv8tion.jda.core.events.ReadyEvent
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
-import net.dv8tion.jda.core.events.ReadyEvent
 import org.reflections.Reflections
-
-import javax.security.auth.login.LoginException
-import java.util.Arrays
-import java.util.ArrayList
-
 import org.slf4j.LoggerFactory
-
 import java.io.File
 import java.io.IOException
-
-import me.ry00001.jbot.core.*
-import me.ry00001.jbot.utils.*
+import java.util.*
+import javax.security.auth.login.LoginException
 
 // o h h n o
 
@@ -111,12 +106,7 @@ class Jbot : ListenerAdapter() {
             val textChannel = event.textChannel
             val member = event.member
 
-            val name: String
-            if (message.isWebhookMessage) {
-                name = author.name
-            } else {
-                name = member.effectiveName
-            }
+            val name = if (message.isWebhookMessage) author.name else member.effectiveName
 
             val prefix = this.config.prefix
             if (!msg.startsWith(prefix!!)) return

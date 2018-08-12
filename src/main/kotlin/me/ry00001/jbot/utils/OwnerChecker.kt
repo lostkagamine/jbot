@@ -1,7 +1,7 @@
 package me.ry00001.jbot.utils
 
-import java.util.stream.LongStream
 import me.ry00001.jbot.core.CommandContext
+import java.util.stream.LongStream
 
 class OwnerChecker {
 

@@ -4,17 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import java.io.File
 import java.io.IOException
 
-class ConfigReader(file: File) {
-    var file: File? = null
-    private val mapper: ObjectMapper
-
-    init {
-        this.file = file
-        this.mapper = ObjectMapper()
-    }
+class ConfigReader(val file: File) {
+    private val mapper = ObjectMapper()
 
     @Throws(IOException::class)
     fun read(): Config {
-        return this.mapper.readValue(this.file, Config::class.java)
+        return mapper.readValue(file, Config::class.java)
     }
 }

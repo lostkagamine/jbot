@@ -1,10 +1,10 @@
 package me.ry00001.jbot.commands
 
-import me.ry00001.jbot.core.*
 import me.ry00001.jbot.Jbot
-import java.util.ArrayList
-
+import me.ry00001.jbot.core.Command
+import me.ry00001.jbot.core.CommandContext
 import net.dv8tion.jda.core.entities.Game
+import java.util.*
 
 class SetGame(bot: Jbot) : Command("setgame", "Sets the game.") {
     init {
