@@ -117,7 +117,7 @@ class Jbot : ListenerAdapter() {
             args.removeAt(0)
             val acmd = this.commands[command] ?: return // EXCEPTION-SAFE:tm: coding
             val ctx = CommandContext(event, this) // construct context
-            val isOwner = OwnerChecker().isOwner(ctx)
+            val isOwner = OwnerChecker.isOwner(ctx)
             if (!isOwner && acmd.isOwnerOnly) {
                 ctx.send("You do not have permission to use this command.")
                 return
