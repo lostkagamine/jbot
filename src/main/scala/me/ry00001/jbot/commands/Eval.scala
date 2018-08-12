@@ -9,9 +9,7 @@ import net.dv8tion.jda.core.entities.Message
 import scala.collection.JavaConverters._
 import java.util.function.Consumer
 
-class Eval(jbot: Jbot) extends Command {
-    name = "eval"
-    description = "Compiles and runs arbitrary Scala code."
+class Eval(jbot: Jbot) extends Command("eval", "Compiles and runs arbitrary Scala code.") {
     ownerOnly = true
     val toolbox = currentMirror.mkToolBox()
 
